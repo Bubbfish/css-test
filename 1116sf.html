@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Page Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    
+</body>
+<script>
+  //1
+const twoSum = (nums, target) => {
+    console.log("llll")
+  const tmp = {};
+  for (let i = 0; i < nums.length; i++) {
+    if (tmp[nums[i]])
+      tmp[nums[i]].push(i);
+    else
+      tmp[nums[i]] = [i];
+  }
+  for (let i = 0; i < nums.length; i++) {
+    if (tmp[target - nums[i]]) {
+      if (target - nums[i] === nums[i]) {
+        if (tmp[nums[i]].length > 1)
+          return [tmp[nums[i]][0], tmp[nums[i]][1]];
+        else
+          continue;
+      } else
+        return [i, tmp[target - nums[i]][0]];
+    }
+  }
+};
+console.log(twoSum([12,2,3,4,3],5))
+//2
+const ListNode = function(val) {
+  this.val = val;
+  this.next = null;
+};
+
+const buildList = nodes => {
+  let list = new ListNode(null);
+  const head = list;
+  for (let node of nodes) {
+    list.next = new ListNode(node);
+    list = list.next;
+  }
+  return head.next;
+};
+let addTwoNumbers = (l1, l2) => {
+  const traverse = (tail, node1, node2, plus) => {
+    if (!node1 && !node2 && !plus) return;
+
+    const sum = (node1 ? node1.val : 0) + (node2 ? node2.val : 0) + (plus ? 1 : 0);
+    const node = new ListNode(sum % 10);
+    tail.next = node;
+    traverse(tail.next, node1 && node1.next, node2 && node2.next, sum > 9);
+  };
+  const head = tail = new ListNode();
+  traverse(tail, l1, l2, false);
+  return head.next;
+};
+
+var s =addTwoNumbers(buildList([2, 4, 3]), buildList([5, 6, 4]));
+//3
+let lengthOfLongestSubstring = s =>{
+  let substring =[];
+  let max =0;
+  let index =0;
+  for(let i=0;i<s.length;i++){
+    index = substring.indexOf(s[i]);
+    if(index !==-1){
+      substring = substring.slice(index+1,substring.length);
+    }
+    substring.push(s[i]);
+    max = Math.max(max,substring.length);
+  }
+  return max;
+}
+//4
+const reverse = x => {
+  let sym = x > 0 ? 1 : -1 ;
+  let stack = [];
+
+  while(x>0){
+    stack.push(x%10);
+    x = parseInt(x/10);
+  }
+  while(stack.length && !stack[0]){
+    stack.shift();
+  }
+  let result = 0;
+  while(stack.length){
+   result = result * 10 +stack.shift() ;
+  }
+
+  if (x > 2147483647 || result > 2147483647 || x < -2147483648 || result < -2147483648) return 0;
+  return result * sym;
+};
+//5
+let isPalindrome = x => {
+  let str =x.toString();
+  let i =0 ,j =str.length -1;
+  while(i<j){
+    if(str[i] !== str[j]){
+      return false;
+    }
+    i++;
+    j--;
+  }
+  return true;
+}
+console.log(reverse(143));
+//6
+
+let atoi =function _parseInt(x, y=10) {
+    x = (x + '').toLowerCase();
+    let a, b = 1, c = '', d = 0, i = -1;
+    const n = '0123456789abcdefghijklmnopqrstuvwxyz';
+    while (a = x[++i]) {
+        if (i === 0) {
+            if (a === '-') {
+                b = -1;
+                continue;
+            } else if (a === '+')
+                continue;
+        }
+        if (a <= n[y]&&a>='0')
+            c +=a;
+        else break;    
+    }
+    if (c === '')
+        return NaN;
+    let l = i = c.length;
+    while (i--) {
+        d += Math.pow(y, l - i - 1) * n.indexOf(c[i]);
+    }
+    return b * d;
+}
+
+atoi("1234")
+</script>
+</html>
