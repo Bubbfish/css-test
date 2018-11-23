@@ -12,7 +12,6 @@
 <script>
   //1
 const twoSum = (nums, target) => {
-    console.log("llll")
   const tmp = {};
   for (let i = 0; i < nums.length; i++) {
     if (tmp[nums[i]])
@@ -32,7 +31,7 @@ const twoSum = (nums, target) => {
     }
   }
 };
-console.log(twoSum([12,2,3,4,3],14))
+//console.log(twoSum([12,2,3,4,3],14))
 //2
 const ListNode = function(val) {
   this.val = val;
@@ -98,7 +97,6 @@ const reverse = x => {
   if (x > 2147483647 || result > 2147483647 || x < -2147483648 || result < -2147483648) return 0;
   return result * sym;
 };
-console.log(reverse(143));
 //5
 let isPalindrome = x => {
   let str =x.toString();
@@ -140,7 +138,6 @@ let atoi =function _parseInt(x, y=18) {
     return b * d;
 }
 
-console.log(atoi("12j34"));
 //7 array.of()
 (function () {
   'use strict';
@@ -216,12 +213,22 @@ Object.prototype.clone = function() {
     if (this instanceof Object || this instanceof Array) {
         var copy = (this instanceof Array)?[]:{};
         for (var attr in this) {
-            if (this.hasOwnProperty(attr))
+            if (this.hasOwnProperty(attr)){
+                console.log(attr);
+                console.log(this[attr]);
+                console.log(this[attr]?0:1);
                 copy[attr] = this[attr]?this[attr].clone():this[attr];
+            }
+                
         }
         return copy;
     }
     throw new Error("Unable to clone obj! Its type isn't supported.");
 }
+var arrds =["ds",12,"b",["sds","0o"],{"a":"1","b":undefined}];
+console.log(arrds.clone());
+
+//9
+
 </script>
 </html>
