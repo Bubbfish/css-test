@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        console.log(this);
+        
+        function Person() {
+            
+        } 
+        console.log(Object.prototype)
+        var person = new Person();
+        console.log(person)//这是原型
+        //原型有一个constructor属性 指向构造函数
+        console.log(Person.prototype);
+        console.log(Person.prototype === person.__proto__);
+        // 顺便学习一个ES5的方法,可以获得对象的原型
+        console.log(Object.getPrototypeOf(person) === Person.prototype) // true
+        //原型也是一个对象 那么他的原型是什么呢？就是原型的原型？
+        //其实原型对象就是通过 Object 构造函数生成的，结合之前所讲，实例的 __proto__ 指向构造函数的 prototype ，
+        //因此Person.prototype.__proto__ === Object.prototype；
+        var obj = new Object();
+        obj.name = 'Kevin'
+        console.log(obj.name) // Kevin
+        //Object的原型是null哦
+        console.log(Object.prototype.__proto__ === null);
+
+        function Car(make, model, year) {
+            this.make = make;
+            this.model = model;
+            this.year = year;
+        }
+        var auto = new Car('Honda', 'Accord', 1998);
+
+        console.log(auto instanceof Car);
+        // expected output: true
+
+        console.log(auto instanceof Object);
+        console.log(Car.prototype.__proto__ == Object.prototype);
+
+    </script>
+</body>
+
+</html>

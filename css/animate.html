@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>animate</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <h1 class="zoomInDown">  wode </h1>
+    <div class="anim"></div>
+</body>
+<style>
+@keyframes zoomIn {
+from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale3d(0.5, 0.5, 0.5);
+  }
+
+}
+.anim
+{
+width:100px;
+height:100px;
+background:red;
+animation:myfirst 5s;
+}
+@keyframes myfirst
+{
+from {background:red;}
+to {background:yellow;}
+}
+.zoomIn {
+  animation: zoomIn 5s;
+  height: 200px;
+  width: 100px;
+  background-color: bisque;
+}
+@keyframes zoomInDown {
+  from {
+    opacity: 0;
+    transform: scale3d(0.1, 0.1, 0.1) translate3d(0, -1000px, 0);
+    animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  60% {
+    opacity: 1;
+    transform: scale3d(0.475, 0.475, 0.475) translate3d(0, 60px, 0);
+    animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1);
+  }
+}
+
+.zoomInDown {
+  animation: zoomInDown 2s;
+}
+</style>
+</html>
