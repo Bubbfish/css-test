@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        //手写call
+        var a ={
+            val:1,
+            c:function(){
+                console.log(this)
+                console.log(this.val);
+            }
+        }
+        // a.c();
+        function b(name,sex){
+            // console.log(this.val);
+            // console.log(name);
+            // console.log(sex);
+            return {
+                value:this.val,
+                name:name,
+                sex:sex
+            }
+        }
+        Function.prototype.selfcall = function(context){
+            var context = context || window;//当context是null的时候指向window
+            console.log(arguments);
+            console.log(arguments[0]);
+            let args =[];
+            for (let index = 1; index < arguments.length; index++) {
+                //args.push('arguments['+index+']');
+                args.push(arguments[index]);
+            }
+            console.log(context);
+            console.log(this);
+            context.fn = this;
+            //这句话就是 context.fn(argumrnts[0],argumrnts[1]);
+            // eval('context.fn('+args+')');
+            //当b为返回值的方法的时候
+            var result = eval('context.fn(args[0],args[1])');
+            delete context.fn;
+            return result;
+        }
+        b.selfcall(a,"qiao","N");
+        console.log(b.selfcall(a,"qiao","N"));
+        //b.call(a,"d")
+  
+    </script>
+</body>
+</html>
