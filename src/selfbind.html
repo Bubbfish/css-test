@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var a ={
+            val:"wurunpu"
+        }
+        function b(name,sex) {
+            console.log(this.val);
+            console.log(name);
+            console.log(sex);
+        }
+        // var testbind =b.bind(a);
+        // var testbind1 = new testbind();
+        //bind 是返回一个方法的 bind返回的方法是可以作为构造函数的
+        //bind第一版无参数 不能作为构造函数
+        Function.prototype.selfbind = function(context){
+            console.log(this);
+            var self = this;
+            return function(){
+                //这里this是window 但是调用apply的应该是方法；
+                return self.apply(context);
+            }
+        }
+    </script>
+</body>
+</html>
