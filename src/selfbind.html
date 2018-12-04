@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
     <script>
-        var a ={
-            val:"wurunpu"
+        var a = {
+            val: "wurunpu"
         }
-        function b(name,sex) {
+        function b(name, sex) {
+            this.habit = 'shopping';
             console.log(this.val);
             console.log(name);
             console.log(sex);
@@ -20,14 +23,50 @@
         // var testbind1 = new testbind();
         //bind 是返回一个方法的 bind返回的方法是可以作为构造函数的
         //bind第一版无参数 不能作为构造函数
-        Function.prototype.selfbind = function(context){
+        //bind第二版可以加参数 依然不能作为构造函数
+        Function.prototype.selfbind = function (context) {
+            var args = Array.prototype.slice.call(arguments, 1);
             console.log(this);
             var self = this;
-            return function(){
+
+            var fNOP = function () { };
+            var fBound = function () {
+                var argsbind = Array.prototype.slice.call(arguments);
                 //这里this是window 但是调用apply的应该是方法；
-                return self.apply(context);
+                //这句话真不懂。、、this instanceof FBOP === true 说明返回的fBound被当做new的构造函数调用？
+                return self.apply(this instanceof fNOP ? this : context, args.concat(argsbind));
             }
+            // 维护原型关系
+            // if (this.prototype) {
+            //     // Function.prototype doesn't have a prototype property
+            //     fNOP.prototype = this.prototype; 
+            // }
+            // 下行的代码使fBound.prototype是fNOP的实例,因此
+            // 返回的fBound若作为new的构造函数,new生成的新对象作为this传入fBound,新对象的__proto__就是fNOP的实例
+            // fBound.prototype = new fNOP();
+            fBound.prototype = this.prototype;
+            console.log(this.prototype);
+            console.log(fBound.prototype);
+            console.log(fNOP.prototype);
+            
+            return fBound;
         }
+        var testbind = b.selfbind(a);
+        // testbind('1','2');
+        var dd = new testbind();
+        console.log(dd.habit);
+        // fToBind的作用同前面第一种兼容方法的_self。fBound作为构造函数时，它的实例会继承fBound.prototype。
+        // 由于fBound.prototype又是fNOP的实例，因此fBound.prototype会继承fNOP.prototype的属性。
+        // fNOP.prototype和this.prototype指向了同一个原型对象，这里的this指向的是调用bind()的函数。
+        // 这样形成的原型链中，fBound的实例将继承得到fNOP.prototype的属性，这便是原型链继承。
+
+        // 当新函数作为构造函数调用时，即new fo() ，它的this将指向新创建的函数实例，
+        // 由第三点所述原型链继承，实例的原型链上存在构造函数fNOP，故 this instanceof fNOP将返回true。
+        // 5、第五，fNOP.prototype = this.prototype用于实现对bind()的调用者的原型链的继承。
+        // 这里，this指向bind()的调用者，因此这使得fNOP.prototype指向调用者的原型对象。假使调用者也有原型链，那么这样新函数就也能继承原函数的原型链。
+        // 当然，只有在调用者是一个函数时才能成立，因此需先判断this.prototype是否返回true。
+  
     </script>
 </body>
+
 </html>
