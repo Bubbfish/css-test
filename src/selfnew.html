@@ -1,20 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>自实现new</title>
 </head>
+
 <body>
+    <div>
+        <span>
+            没有实现呢太难了 没懂
+        </span>
+    </div>
     <script>
-        var data =[];
-        for (let i = 0; i < 3; i++) {
-            (data[i] =function(){
-                console.log(arguments.callee.i)
-            }).i = i;
+        //callee
+        // var data =[];
+        // for (let i = 0; i < 3; i++) {
+        //     (data[i] =function(){
+        //         console.log(arguments.callee.i)
+        //     }).i = i;
+        // }
+        // data[0]();
+        //entries()
+        var arr = ["a", "b", "c"];
+        var iter = arr.entries();
+        var a = [];
+
+        // for(var i=0; i< arr.length; i++){   // 实际使用的是这个 
+        for (var i = 0; i < arr.length + 1; i++) {    // 注意，是length+1，比数组的长度大
+            var tem = iter.next();             // 每次迭代时更新next
+            console.log(tem.done);             // 这里可以看到更新后的done都是false
+            if (tem.done !== true) {             // 遍历迭代器结束done才是true
+                console.log(tem.value);
+                a[i] = tem.value;
+            }
         }
-        data[0]();
+
+        console.log(a);
+        //every
+
+        var isevery =arr.every(a=>{
+             return a<"d"
+        });
+        console.log(isevery);
+        
+
     </script>
 </body>
+
 </html>

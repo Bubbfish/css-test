@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>10大排序</title>
+</head>
+
+<body>
+    <script>
+        //bubble sort
+        //冒泡排序是一种简单的排序算法。
+        // 它重复地走访过要排序的数列，一次比较两个元素，如果它们的顺序错误就把它们交换过来。
+        // 走访数列的工作是重复地进行直到没有再需要交换，也就是说该数列已经排序完成。
+        // 这个算法的名字由来是因为越小的元素会经由交换慢慢“浮”到数列的顶端。 
+
+        // 1.1 算法描述
+        // 比较相邻的元素。如果第一个比第二个大，就交换它们两个；
+        // 对每一对相邻元素作同样的工作，从开始第一对到结尾的最后一对，这样在最后的元素应该会是最大的数；
+        // 针对所有的元素重复以上的步骤，除了最后一个；
+        // 重复步骤1~3，直到排序完成。
+        function bubbleSort(arr) {
+            var len = arr.length;
+            for(var i =0;i<len;i++){
+                for(var j =0;j<len-i;j++){
+                    if(arr[j]>arr[j+1]){
+                        var temp = arr[j];
+                        arr[j+1] = temp;
+                        arr[j] = arr[j+1];
+                    }
+                }
+            }
+            return arr;
+        }
+
+        var arr = [1, 5, 34, 12, 34, 78, 32, 908, 23, 3143];
+        //这是我第一次写的冒泡 但是它更像是选择排序，第一个数不变 与其他数作比较，把最大的永远放在第一个
+        //选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：
+        // 首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，
+        // 再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。
+        // 以此类推，直到所有元素均排序完毕。 
+        // function selectionSort(arr){
+        //     for (let i = 0; i < arr.length; i++) {
+        //         for(let j=i+1;j<arr.length;j++){
+        //             if(arr[i]<arr[j]){
+        //                 var temp = arr[i];
+        //                 arr[i] = arr[j];
+        //                 arr[j] = temp;;
+        //             }
+        //         }
+        //     }
+        //     return arr;
+        // }
+        //插入排序
+        // 插入排序（Insertion-Sort）的算法描述是一种简单直观的排序算法。
+        // 它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。
+        function insertionSort(arr){
+        }
+        //二分查找
+        function binary_search(arr,key){
+            var low = 0;
+            var height = arr.length-1;
+            while(low < height){
+                var mid = (low+height)/2;
+                if(key =arr[mid]){
+                    return mid;
+                }else if(key<arr[mid]){
+                    height = mid;
+                }else if(key > arr[mid]){
+                    low =mid;
+                }else{
+                    return -1;
+                }
+            }
+        }
+        console.log(bubbleSort(arr));
+
+    </script>
+</body>
+
+</html>
