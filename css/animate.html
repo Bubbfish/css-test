@@ -7,10 +7,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-    <h1 class="zoomInDown">  wode </h1>
-    <div class="anim"></div>
+    <h1 class="zoomInDown inline-block">  wode </h1>
+    <div class="anim inline-block "></div>
+    <div class="pseudo-class inline-block">
+      伪类学习
+    </div>
+    <div class="scroll-b inline-block">
+
+    </div>
+    <div class="stripe-ring inline-block">
+
+    </div>
+    <h2 class="">
+      <span>颠三倒四</span>
+      <p>单行居中，多行居左</p>
+    </h2>
+    <div id="word-box" class="">
+      <span>计算机 点击点击 </span>
+    </div>
 </body>
 <style>
+  .inline-block{
+    display: inline-block;
+  }
+  #word-box{
+    width: 120px;
+    text-align: center;
+  }
+  #word-box >span{
+    display: inline-block;
+    text-align: left;
+  }
+  h2{
+    text-align: center;
+  }
+  p{
+    display: inline-block;
+    text-align: left;
+  }
+  /*border和backgrand合作一起完成*/
+  .stripe-ring{
+    position: relative;
+    height: 180px;
+    width: 180px;
+    background:#9c27b0;
+    border:20px dashed #2196f3;
+  }
+  .stripe-ring::after{
+    content: "";
+    position: absolute;
+    top:0;
+    left:0;
+    bottom:0;
+    right:0;
+    background:#fff;
+  }
+   /**/
+   /* .stripe-ring{
+      background:#fff;
+      background-clip:padding-box;
+      border:20px dashed #cccc99;
+    }
+    .stripe-ring::before{
+        content:"";
+        position:absolute;
+        top:-20px;
+        left:-20px;
+        bottom:-20px;
+        right:-20px;
+        background:#996699;
+        z-index:-1;
+    } */
+/**/
+  .scroll-b{
+    width:205px;
+    background:deeppink;
+    overflow-y:scroll;
+    height: 30px;
+}
+.scroll-b::-webkit-scrollbar{
+    width: 200px;
+    background-color:#ddd;
+}
+  .pseudo-class{
+    width: 100px;
+    height: 50px;
+    background-color: aquamarine;
+  }
+  .pseudo-class:hover{
+    background-color: yellow;
+  }
+  .pseudo-class::before{
+    content: "我的"
+  }
 @keyframes zoomIn {
 from {
     opacity: 0;
