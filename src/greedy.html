@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+    // var count=0;
+    // for(var i=0;i<21;i++){
+    //     for(var j=0;j<i.toString().length;j++){
+    //         if(i.toString()[j] == "1"){
+    //             count++;
+    //         }
+    //     }
+    // }
+    // console.log(count);
+ 
+
+    // var c,x=0;
+    // if(!(c in window)){
+    //     x++;
+
+    // }
+    // console.log(x);
+
+    
+//     闭包的应用场景
+
+// 　　1.使用闭包代替全局变量
+
+// 　　2.函数外或在其他函数中访问某一函数内部的参数
+
+// 　　3.在函数执行之前为要执行的函数提供具体参数
+
+// 　　4.在函数执行之前为函数提供只有在函数执行或引用时才能知道的具体参数
+
+//      5.为节点循环绑定click事件，在事件函数中使用当次循环的值或节点，而不是最后一次循环的值或节点
+
+//      6.暂停执行
+//      7.包装相关功能
+    let value =1;
+    function f1(params) {
+        console.log(params)
+    }
+    function f2(params) {
+        return function(pa){
+            console.log(params);
+            console.log(pa);
+        }
+    }
+    var f3 = f2();
+    // setTimeout(f1, 100);
+    setTimeout(f2(value), 1020);
+    setTimeout(f3(value), 1020);
+    
+</script>
+</body>
+</html>
