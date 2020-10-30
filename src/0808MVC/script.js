@@ -1,3 +1,5 @@
+import Json from js.json 
+console.log(Json)
 class Model{
   constructor() {
     this.todos = [

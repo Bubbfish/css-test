@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="200" height="200"></canvas>
+    <script>
+        var canvas = document.getElementById('myCanvas');
+        // if (canvas.getContext) {
+        //     var ctx = canvas.getContext('2d');
+
+
+
+        //     ctx.fillStyle = 'rgba(0, 0, 200, 0.5)';
+        //     ctx.fillRect(120, 120,200, 200);
+        //     ctx.beginPath();
+
+        //     ctx.fillStyle='#000'
+        //     ctx.moveTo(220, 20);
+        //     ctx.lineTo(90, 140);
+        //     ctx.lineTo(350, 140);
+        //     ctx.fill();
+        // }
+        // var gl = canvas.getContext('webgl');
+        // console.log(gl.VERTEX_SHADER)
+        // var WebGLShader = gl.createShader(gl.VERTEX_SHADER);
+        // gl.shaderSource(shader, shaderSource)
+        // console.log(WebGLShader)
+        // fetch(`http://192.168.2.189:3000/webapps/BirdAndBeetle`,).then(response => {
+        //     console.log(response)
+        //    }).catch(error => {
+        //     alert(`API失败！${error}`);
+        // });
+        function createAction() {
+            var message = "封闭环境内的变量";
+
+            return function () {
+                console.log(message);
+            }
+        }
+        // console.log(message)
+        const showMessage = createAction();
+        showMessage(); 
+    </script>
+</body>
+
+</html>

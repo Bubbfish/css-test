@@ -226,9 +226,95 @@ Object.prototype.clone = function() {
     throw new Error("Unable to clone obj! Its type isn't supported.");
 }
 var arrds =["ds",12,"b",["sds","0o"],{"a":"1","b":undefined}];
-console.log(arrds.clone());
-
+// console.log(arrds.clone());
+console.log("arr".clone())
 //9
+//非立即执行版防抖
+function debounce(func, wait) {
+    let timeout;
+    return function () {
+        let context = this;
+        let args = arguments;
 
+        if (timeout) clearTimeout(timeout);
+        
+        timeout = setTimeout(() => {
+            func.apply(context, args)
+        }, wait);
+    }
+}
+//立即执行版防抖
+function debounce(func,wait) {
+    let timeout;
+    return function () {
+        let context = this;
+        let args = arguments;
+
+        if (timeout) clearTimeout(timeout);
+
+        let callNow = !timeout;
+        timeout = setTimeout(() => {
+            timeout = null;
+        }, wait)
+
+        if (callNow) func.apply(context, args)
+    }
+}
+/**
+ * @desc 函数防抖
+ * @param func 函数
+ * @param wait 延迟执行毫秒数
+ * @param immediate true 表立即执行，false 表非立即执行
+ */
+
+  function debounce(func,wait,immediate) {
+    let timeout;
+
+    return function () {
+        let context = this;
+        let args = arguments;
+
+        if (timeout) clearTimeout(timeout);
+        if (immediate) {
+            var callNow = !timeout;
+            timeout = setTimeout(() => {
+                timeout = null;
+            }, wait)
+            if (callNow) func.apply(context, args)
+        }
+        else {
+            timeout = setTimeout(function(){
+                func.apply(context, args)
+            }, wait);
+        }
+    }
+}
+//最后一块石头的重量js解法
+
+function lastStone(stones) {
+  if(stones.length == 1) return stones[0];
+  stones.sort((a,b)=>{
+    return b -a
+  })
+  while(stones.length > 1){
+    let t = stones[0] - stones[1];
+    if(t ==0){
+      stones.shift();
+      stones.shift()
+    }else{
+      stones[1] = t 
+      stones.shift()
+    }
+    stones.sort((a,b)=>{
+      return b -a
+    })
+
+
+  }
+
+  return stones[0]
+}
+
+console.log(lastStone([2,7,4,1,8,1]))
 </script>
 </html>

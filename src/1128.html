@@ -17,6 +17,8 @@
         console.log(Object.prototype)
         var person = new Person();
         console.log(person)//这是原型
+        console.log(Person)
+        console.log("原型的prototype:"+ person.prototype)
         //原型有一个constructor属性 指向构造函数
         console.log(Person.prototype);
         console.log(Person.prototype === person.__proto__);
@@ -44,6 +46,58 @@
         console.log(auto instanceof Object);
         console.log(Car.prototype.__proto__ == Object.prototype);
 
+        //
+        // function Boolean(val) {
+        //     this.val = val;
+        // }
+        let boo1 =new Boolean(21);
+        console.log(boo1 === true)
+
+        class Wurunp{
+            constructor(a,b){
+                this.a = a;
+                this.b = b;
+            }
+        }
+
+        let Wurunp1 = new Wurunp("a1","b1");
+        Wurunp.prototype.getavalue = function () {
+            let that = this;
+            return function () {
+                console.log("son")
+                console.log(that)
+                return function () {
+                        console.log("disance")
+                }
+            }
+        }
+        Wurunp1.__proto__.getavalue = function () {
+            let that = this;
+            return function () {
+                console.log("son1")
+                console.log(that)
+            }
+        }
+        Wurunp1.getavalue()()
+        Object.prototype.toString.call(Person)
+        function Foo() {
+  this.id=111;
+  this.getId = ()=>{
+    console.log(this.id);
+  }
+}
+
+
+const obj = {
+  id : "obj",
+  getId : () => {
+    console.log(this.id);
+  }
+};
+
+var foo = new Foo();
+foo.getId();
+obj.getId();
     </script>
 </body>
 

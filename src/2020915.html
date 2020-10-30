@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        function deep(value) {
+            if (value == "null") {
+                return value
+            }
+            let result;
+            if (Object.prototype.toString.call(value) == "[object Object]") {
+                result = {};
+                for (key in value) {
+                    result[key] = deep(value[key])
+                }
+                return result
+            } else if (Object.prototype.toString.call(value) == "[object Array]") {
+                result = []
+                for (let i = 0; i < value.length; i++) {
+                    result.push(deep(value[i]))
+                }
+                return result
+            } else {
+                return value
+            }
+        }
+        if (this instanceof Number || this instanceof Boolean || String)
+            console.log(deep([1, "3as", undefined]))   
+    </script>
+    <div id="content"
+        style="height:150px;line-height:150px;text-align:center; color: #fff;background-color:#ccc;font-size:80px;">
+    </div>
+    <script>
+        let num = 1;
+        let content = document.getElementById('content');
+
+        function count() {
+            console.log(2)
+            content.innerHTML = num++;
+        };
+
+
+        function debounce(func, wait) {
+            console.log(1)
+            let timer;
+            return function () {
+                if (timer) {
+                    clearTimeout(timer)
+                }
+                timer = setTimeout(() => func(), wait)
+            }
+        }
+        function throttle(func, wait) {
+            let timer;
+            return function () {
+                let context = this;
+                let arg = arguments;
+                if (!timer) {
+                    timer = setTimeout(
+                        () => {
+                            timer = null;
+                            func.apply(context, arguments)
+                        }
+                        , wait)
+                }
+            }
+        }
+        content.onmousemove = throttle(count, 3000)
+
+        function search(arr, key) {
+            let low = 0;
+            let height = arr.length - 1;
+            while (low < height) {
+                let mid = parseInt((low + height) / 2)
+                if (arr[mid] == key) {
+                    return mid
+                } else if (arr[mid] < key) {
+                    low = mid + 1;
+                } else if (arr[mid] > key) {
+                    height = mid - 1;
+                } else {
+                    return -1
+                }
+            }
+        }
+        function binary_search(arr, key) {
+            var low = 0,
+                high = arr.length - 1;
+            while (low <= high) {
+                var mid = parseInt((high + low) / 2);
+                if (key == arr[mid]) {
+                    return mid;
+                } else if (key > arr[mid]) {
+                    low = mid + 1;
+                } else if (key < arr[mid]) {
+                    high = mid - 1;
+                } else {
+                    return -1;
+                }
+            }
+        };
+        console.log(binary_search([1, 2, 3, 4], 2))
+        console.log(binary_search([1, 2, 3, 4], 21))
+        console.log(binary_search([1, 2, 3, 4], 1))
+        console.log(binary_search([1, 2, 3, 4], 4))
+
+        Function.prototype.selfcall = function (value) {
+            let context = value || window;
+            context.fn = this;
+            let result = context.fn(...arguments);
+            delete context.fn;
+            return result;
+        }
+        function P() {
+            
+            this.name = "1"
+        }
+        function A() {
+
+        }
+        //原型连继承
+        //         　重点：让新实例的原型等于父类的实例。
+        // 　　　　特点：1、实例可继承的属性有：实例的构造函数的属性，父类构造函数属性，父类原型的属性。（新实例不会继承父类实例的属性！）
+        // 　　　　缺点：1、新实例无法向父类构造函数传参。
+        // 　　　　　　　2、继承单一。
+        // 　　　　　　　3、所有新实例都会共享父类实例的属性。（原型上的属性是共享的，一个实例修改了原型属性，另一个实例的原型属性也会被修改！）
+        A.prototype = new P();
+        var b = new A();
+        console.log(b.name)
+        //         　　　　重点：用.call()和.apply()将父类构造函数引入子类函数（在子类函数中做了父类函数的自执行（复制））
+        // 　　　　特点：1、只继承了父类构造函数的属性，没有继承父类原型的属性。
+        // 　　　　　　　2、解决了原型链继承缺点1、2、3。
+        // 　　　　　　　3、可以继承多个构造函数属性（call多个）。
+        // 　　　　　　　4、在子实例中可向父实例传参。
+        // 　　　　缺点：1、只能继承父类构造函数的属性。
+        // 　　　　　　　2、无法实现构造函数的复用。（每次用每次都要重新调用）
+        // 　　　　　　　3、每个新实例都有父类构造函数的副本，臃肿。
+        function B() {
+            P.call(this, "b-value");
+            this.age = 12;
+        }
+        var b1 = new B();
+        //组合继承
+//         　　　　重点：结合了两种模式的优点，传参和复用
+// 　　　　特点：1、可以继承父类原型上的属性，可以传参，可复用。
+// 　　　　　　　2、每个新实例引入的构造函数属性是私有的。
+// 　　　　缺点：调用了两次父类构造函数（耗内存），子类的构造函数会代替原型上的那个父类构造函数。
+        function C(){
+            P.call(this,"c-value")
+        }
+        C.prototype = new P();
+//         原型式继承
+//         　　　　重点：用一个函数包装一个对象，然后返回这个函数的调用，这个函数就变成了个可以随意增添属性的实例或对象。object.create()就是这个原理。
+// 　　　　特点：类似于复制一个对象，用函数来包装。
+// 　　　　缺点：1、所有实例都会继承原型上的属性。
+// 　　　　　　　2、无法实现复用。（新实例属性都是后面添加的）
+        function content1(obj){
+            function F(){}
+            F.prototype = obj;
+            return new F()
+        }
+        var sup = new P();
+        var sup1 = content1(sup);
+        //5.寄生式组成
+        //6.寄生组合式继承
+        //https://www.cnblogs.com/ranyonsue/p/11201730.html
+        
+        //最大子数组
+        let arr1 = [-2,1,3,-1,7,-6]
+        function zuida(arr=[]){
+            let curtem =0;
+            let maxtem =0;
+            for (let index = 0; index < arr.length; index++) {
+                curtem += arr[index];
+                if(curtem > maxtem){
+                    maxtem = curtem
+                } else if(curtem <0){
+                    curtem =0
+                }
+                
+            }
+            return maxtem;
+        }
+        console.log(zuida(arr1))
+    </script>
+    <div class="box">
+        <div class="scale">
+            <p>这是一个16：9的矩形</p>
+        </div>
+    </div>
+    <div class="sanjiao"></div>
+</body>
+<style>
+    .box {
+        width: 80%;
+    }
+
+    .scale {
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        position: relative;
+    }
+
+    .item {
+        width: 100%;
+        height: 100%;
+        background-color: aquamarine;
+        position: absolute;
+    }
+
+    .sanjiao {
+        width: 0;
+        height: 0;
+        border: 40px solid;
+        border-color: transparent transparent red;
+    }
+</style>
+
+</html>

@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+
 <body>
-<script>
-    setTimeout(function(){
-        console.log(1)
-    },0);
-    new Promise(function exector(resolve){
-        console.log(2);
-        for(var i=0;i<10000;i++){
-            i=9999 && resolve();
+    <script>
+        setTimeout(function () {
+            console.log(1)
+        }, 0);
+        new Promise(function exector(resolve) {
+            console.log(2);
+            for (var i = 0; i < 10000; i++) {
+                i = 9999 && resolve();
+            }
+            console.log(3);
+        }).then(function () {
+            console.log(4);
+        });
+        console.log(5);
+        //手写promise 手写快排 手写mvvm 手写deepclone
+
+        Object.prototype.a = 'Object';
+        Function.prototype.a = 'Function';
+        // 因为任意函数都是Function() new(构造)出来的.
+        // 任意函数都是Function()构造函数的实例
+
+        function Person() { };
+        var child = new Person();
+        console.log(child.a);
+        console.log(Person.a);
+
+        function A() {
+            this.a = 123;
+            return {
+                a: 456
+            }
+
         }
-        console.log(3);
-    }).then(function(){
-        console.log(4);
-    });
-    console.log(5);
-    //手写promise 手写快排 手写mvvm 手写deepclone
+        console.log(new A());
+        function Foo() {
+            this.id = 111;
+            this.getId = () => {
+                console.log(this.id);
+            }
+        }
+
+
+        const obj = {
+            id: "obj",
+            getId: () => {
+                console.log(this.id);
+            }
+        };
+
+        var foo = new Foo();
+        foo.getId();
+        obj.getId(); 
+        //node端和浏览器端有啥差别
+        //promise all的实现
+           
 </script>
-    
+
 </body>
+
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="w"class="scratchCategoryMenuItemLabel">自定义</div>
+    <div class="flex1">
+        <div class="imgdiv">
+            <img class="img1" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1597038104781&di=58ab4d9dd5e360c93000957bda65b3e1&imgtype=0&src=http%3A%2F%2Fa3.att.hudong.com%2F14%2F75%2F01300000164186121366756803686.jpg" alt="">
+        </div>
+        <div class="div2">
+
+        </div>
+    </div>
+
+</body>
+<style>
+.imgdiv{
+    width: 200px;
+}
+.img1{
+    width: 200px;
+}
+.flex1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.div2{
+    width: 200px;
+    height: 500px;
+    border: 1px solid #000;
+}
+</style>
+<script>
+    let ele = document.getElementById("w");
+    console.log(ele)
+    ele.classList.add("snow-container")
+    console.log(ele)
+    var str = "Paseo de los Jesuitas, 85 , P03";
+    arr = /[\s\S]*\,[0-9\s]+\,[0-9\S\s]*$/.test(str);
+    console.log(arr)
+
+
+    function Test(param) {
+        
+    }
+</script>
+</html>

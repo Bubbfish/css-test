@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>fireKeyEvent</title>
+</head>
+
+<body>
+    <input type="text" id="txt1" />
+    <input type="button" id="btn1" value="fire" />
+
+    <script type="text/javascript">
+        function fireKeyEvent(el, evtType, keyCode) {
+            var doc = el.ownerDocument,
+                win = doc.defaultView || doc.parentWindow,
+                evtObj;
+            if (doc.createEvent) {
+                if (win.KeyEvent) {
+                    evtObj = doc.createEvent('KeyEvents');
+                    evtObj.initKeyEvent(evtType, true, true, win, false, false, false, false, keyCode, 0);
+                }
+                else {
+                    evtObj = doc.createEvent('UIEvents');
+                    Object.defineProperty(evtObj, 'keyCode', {
+                        get: function () { return this.keyCodeVal; }
+                    });
+                    Object.defineProperty(evtObj, 'which', {
+                        get: function () { return this.keyCodeVal; }
+                    });
+                    evtObj.initUIEvent(evtType, true, true, win, 1);
+                    evtObj.keyCodeVal = keyCode;
+                    if (evtObj.keyCode !== keyCode) {
+                        console.log("keyCode " + evtObj.keyCode + " 和 (" + evtObj.which + ") 不匹配");
+                    }
+                }
+                el.dispatchEvent(evtObj);
+            }
+            else if (doc.createEventObject) {
+                evtObj = doc.createEventObject();
+                evtObj.keyCode = keyCode;
+                el.fireEvent('on' + evtType, evtObj);
+            }
+        }
+
+        document.getElementById("btn1").addEventListener("click", function(){
+            fireKeyEvent(document.getElementById("txt1"), 'keydown', 32);
+        });
+
+        document.addEventListener('keydown', function(ev){
+        console.log(ev.which);
+      });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    
+    <script type="text/javascript">
+    console.log(this.name)
+    var result = Math.round(11.5) + Math.round(-11.5);
+    console.log(result);
+
+    function aa(params) {
+        switch (params) {
+            case 'A':
+                console.log("a")
+                break;
+            case 'undefined':
+             console.log("1")
+            default:
+            console.log("2")
+                break;
+        }
+    }
+    // aa(newString('A'))
+    function A() {
+        
+    }
+    function B(a) {
+        console.log(a)
+        this.a = a;
+    }
+    function C(a) {
+        if(a){
+            this.a = a
+        }
+    }
+    B()
+    A.prototype.a =1
+    B.prototype.a =1
+    C.prototype.a =1
+    console.log(new A().a)
+    console.log(new B().a)
+    console.log(new C().a)
+//        var name;
+
+//        if(!name){
+//            name =  Math.random();
+//            console.log(name);
+//            if(!name || name=='null'){
+//                name = '游客';
+//            }
+//        }
+//        console.log(name);
+
+// //第二种
+//        var name1;
+
+// if(!name1){
+//     name1 =  Math.random();
+//     console.log(name1);
+//     if(!name1 || name1=='null'){
+//         name1 = '游客1';
+//     }
+// }
+// console.log(name1);
+    </script>
+</head>
+</html>
